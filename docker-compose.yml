@@ -1,16 +1,17 @@
 services:
   api1:
     build: .
-    command: ["./main", "9999"]
-    ports:
-      - 9999:9999
+    command: ["./main"]
   api2:
     build: .
-    command: ["./main", "9998"]
-    ports:
-      - 9998:9998
+    command: ["./main"]
   api3:
     build: .
-    command: ["./main", "9997"]
+    command: ["./main"]
+
+  load-balancer:
+    image: nginx:1.29.0
     ports:
-      - 9997:9997
+      - 8080:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
